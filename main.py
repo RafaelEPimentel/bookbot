@@ -27,12 +27,32 @@ def count_characters(string):
     return counter_dict
 
 
+def sort_on(dict):
+    return dict["num"]
+
+#function that takes a dictionary with the information of how many characters in a book and an integer that holds the amount of words
+def create_report(dict,numwords):
+    print("--- Begin report of books/frankenstein.txt ---")
+    print(f"{numwords} words found in the document")
+    print()
+    #sort dictionary in descending order of character appearances
+    dict_list = [{"num": dict[x],"char": x} for x in dict if x.isalpha()]
+    dict_list.sort(reverse=True,key=sort_on)
+    for dictionary in dict_list:
+        print(f"The '{dictionary['char']}' character was found {dictionary['num']} times")
+    print("--- End report ---")
+
+
 
 
 def main():
     path = "books/frankenstein.txt"
-    print(reader("books/frankenstein.txt"))
-    print(count_words(reader(path)))
-    print(count_characters(reader(path)))
+    stringified_book = reader(path)
+    words_counted = count_words(stringified_book)
+    characters_counted = count_characters(stringified_book)
+    #print(stringified_book)
+    #print(words_counted)
+    #print(characters_counted)
+    create_report(characters_counted,words_counted)
 
 main()
